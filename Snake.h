@@ -34,7 +34,6 @@ class Snake{
         initialize_position();
     }
     void update_snake(int x, int y);
-    bool next_step();
     void sync_screen(bool screen[8][8]);
     bool is_snake(int x, int y){
        if( x < 0 || x > 7 || y < 0 || y > 7) return false;
@@ -47,9 +46,11 @@ class Snake{
         increase_size = 1;
     }
     bool is_head(int row, int col){
+        if(row < 0 || col < 0 || row > 7 || col > 7) return false;
         return (arr[row][col] == HEAD);
     }
     bool is_tail(int row, int col){
+        if(row < 0 || col < 0 || row > 7 || col > 7) return false;
         return (arr[row][col] == TAIL);
     }
     bool is_alive(){return alive;}
@@ -60,6 +61,19 @@ class Snake{
     void down();
     void left();
     void right();
+    void random_apple();
+    bool is_ate_an_apple(){
+        if( is_head(AppleX, AppleY) ){
+            AppleX = -1, AppleY = -1;
+            return true;
+        }
+        return false; 
+    }
+    bool next_step();
+    bool have_an_apple(int row, int col){
+        if(row < 0 || col < 0 || row > 7 || col > 7) return false;
+        return row == AppleX && col == AppleY;
+    }
 };
 
 void Snake::initialize_position(){
@@ -89,6 +103,7 @@ void Snake::initialize_position(){
 
 //without change of size
 bool Snake::next_step(){
+    if( is_ate_an_apple() ) increase_size = 1;
     switch (curDirection)
     {
     case UP:
@@ -165,7 +180,6 @@ void Snake::sync_screen(bool screen[8][8]){
     rep(i, 0, 7) rep(j,0,7) screen[8][8] = bool(arr[i][j]);
 };
 
-
 void Snake::turn_left(){
     switch (curDirection)
     {
@@ -183,7 +197,6 @@ void Snake::turn_left(){
         break;
     }
 }
-
 void Snake::turn_right(){
     switch (curDirection)
     {
@@ -201,29 +214,31 @@ void Snake::turn_right(){
         break;
     }
 }
-
-
 void Snake::up(){
     if( curDirection == DOWN ) return;
     curDirection = UP;
 }
-
 void Snake::down(){
     if(curDirection == UP) return;
     curDirection = DOWN;
 }
-
 void Snake::left(){
     if(curDirection == RIGHT) return;
     curDirection = LEFT;
 }
-
 void Snake::right(){
     if(curDirection == LEFT) return;
     curDirection = RIGHT;
 }
-
 void Snake::continue_straight(){
     /*nothin' happened*/
 }
-
+void Snake::random_apple(){
+    if(AppleX != -1 && AppleY != -1) return;
+    static int c = 314;
+    srand(c); c= (c*c-123*c/71)%64;
+    if(  rand()%5 <= 2 ){
+        AppleX = rand()%8, AppleY = rand()%8;
+        while( is_snake(AppleX, AppleY) ) AppleX = rand()%8, AppleY = rand()%8;
+    }
+}

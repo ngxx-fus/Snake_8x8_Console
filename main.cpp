@@ -9,7 +9,10 @@ inline void print_a_frame(Snake &s){
     cout << "\033[2J\033[1;1H";
     rep(i, 0, 7){
         rep(j, 0, 7){
-            cout << ((s.is_snake(i, j))?('*'):('.')) << " ";
+            if(s.is_snake(i, j))cout << '*' << ' ';
+            else
+                if(s.have_an_apple(i, j)) cout << '#' << ' ';
+                else cout << '.' << ' ';
         }
         cout << endl;
     }
@@ -36,8 +39,7 @@ int main(){
             s.up();
             break;      
         }
-        s.increase_snake_size();
-        pressed = '0';
+        s.random_apple();
         s.next_step();
         print_a_frame(s);
     }
