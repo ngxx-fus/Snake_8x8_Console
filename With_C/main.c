@@ -32,17 +32,17 @@ int main(){
         switch (pressed)
         {
         case 'a':
-            direction_change(turn_left);
+            direction_change(to_left);
             break;
         case 'd':
-            direction_change(turn_right);
+            direction_change(to_right);
             break; 
         case 's':
-            direction_change(u_turn);
+            direction_change(to_down);
             break;
         case 'w':
-            direction_change(to_ward);
-            break;      
+            direction_change(to_up);
+            break;
         }
         direction_update();
         snake_head_update();

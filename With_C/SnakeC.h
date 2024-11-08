@@ -205,4 +205,5 @@ void snake_initial(){
     random_apple();
     current_direction = (random()%3)*90;
     next_direction = 0;
+    is_dead = 0;
 }
