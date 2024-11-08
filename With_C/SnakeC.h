@@ -5,31 +5,35 @@
 
 /*
 
-                    UP
-                    ↑
-              0 1 2 3 4 5 6 7 8 y 
-            0 # # # # # # # # 
-            1 # # # # # # # # 
-            2 # # # # # # # # 
-            3 # # # # # # # #
-    LEFT ←  4 # # # # # # # # → RIGHT
-            5 # # # # # # # # 
-            6 # # # # # # # # 
-            7 # # # # # # # # 
-            8       ↓
-            x       Down
+                         UP (90)
+                         ↑
+                 0 1 2 3 4 5 6 7 8 y 
+                 0 # # # # # # # # 
+                 1 # # # # # # # # 
+                 2 # # # # # # # # 
+                 3 # # # # # # # #
+    (180) LEFT ← 4 # # # # # # # # → RIGHT (0)
+                 5 # # # # # # # # 
+                 6 # # # # # # # # 
+                 7 # # # # # # # # 
+                 8       ↓
+                 x       Down (270)
 
-apple : 19
-snake{
-    + HEAD: 3
-    + BODY: 7(RIGHT), 11(UP), 17(LEFT), 23(DOWN)
-    + TAIL: 27
-}
+    apple : 19
+    snake{
+        + HEAD: 3
+        + BODY: 15(RIGHT), 105(UP), 195(LEFT), 285(DOWN)
+        + TAIL: 7
+    }
 
 */
+
+//Map value
 enum enum_Apple{apple=19};
 enum enum_Snake{head=3, body_r=15, body_u=105, body_l=195, body_d=285, tail=7};
-enum enum_NextDirection{to_ward=0, turn_left=90, turn_right=-90, u_turn=360};
+// Next Direction earlier phase Current Direction 15 degrees
+enum enum_NextDirection{to_ward=0, to_right=15, to_up=105, to_left=195, to_down=285};
+// Current Direction 
 enum enum_CurrDirection{right=0, up=90, left=180, down=270};
 
 #define _360_bounded(x) (((x)+360)%360)
@@ -75,9 +79,40 @@ void direction_change(int new_direction){
 }
 
 void direction_update(){
-    current_direction += next_direction;
-    current_direction = _360_bounded(current_direction);
-    next_direction = 0;
+    // current_direction += next_direction;
+    // current_direction = _360_bounded(current_direction);
+    switch (next_direction) {
+        case to_ward:
+            return;
+        case to_left:
+            if(current_direction == right) {
+                next_direction = to_ward;
+                return;
+            }
+            current_direction = _360_bounded(next_direction-15);
+            return;
+        case to_right:
+            if(current_direction == left) {
+                next_direction = to_ward;
+                return;
+            }
+            current_direction = _360_bounded(next_direction-15);
+            return;
+        case to_up:
+            if(current_direction == down) {
+                next_direction = to_ward;
+                return;
+            }
+            current_direction = _360_bounded(next_direction-15);
+            return;
+        case to_down:
+            if(current_direction == up) {
+                next_direction = to_ward;
+                return;
+            }
+            current_direction = _360_bounded(next_direction-15);
+            return;
+    }
 }
 
 int is_myself(){
