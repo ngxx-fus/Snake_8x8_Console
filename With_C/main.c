@@ -9,11 +9,15 @@ void print_a_frame(){
     REP(i, 0, 7){
         REP(j, 0, 7){
             if(field[i][j]){
-                // printf("%d\t", field[i][j]);
-                printf("# ");
+                printf("%d\t", field[i][j]);
+                // if(field[i][j] == apple)
+                //     printf("x ");
+                // else
+                //     printf("# ");
+
             }else{
-                // printf("%d\t", field[i][j]);
-                printf("  ");
+                printf("%d\t", field[i][j]);
+                // printf("  ");
             }
         }
         printf("\n");
