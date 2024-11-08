@@ -47,4 +47,4 @@ Currently, ```direction_change()``` only appcept one parameter is **to_ward**, *
 
 NOTE: 
 +   To re-run this game, run Snake_Initial() or **over-write** is_dead variable. But of you over-write **is_dead** the field of prev game is not clear, to clear field use **snake_clear()**. :>
-+   ```int field[9][9]``` To display this game, just print this array. Base on **map value**, you can determine which is snake and which is apple.
++   ```int field[8][8]``` To display this game, just print this array. Base on **map value**, you can determine which is snake and which is apple.
