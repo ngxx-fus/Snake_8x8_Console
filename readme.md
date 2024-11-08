@@ -52,6 +52,6 @@ NOTE:
 
 ## Preview
 ### Filtered output
-![alt text](./With_C/image1.png)
+![alt text](https://github.com/ngxx-fus/Snake_8x8_Console/blob/main/With_C/image1.png?raw=true)
 ### Raw output
-![alt text](./With_C/image2.png)
+![alt text](https://github.com/ngxx-fus/Snake_8x8_Console/blob/main/With_C/image2.png?raw=true)
