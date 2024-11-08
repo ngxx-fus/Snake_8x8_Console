@@ -6,8 +6,8 @@ void print_a_frame(){
     
     int i, j;
     // printf("\033[2J\033[1;1H");
-    REP(i, 0, 8){
-        REP(j, 0, 8){
+    REP(i, 0, 7){
+        REP(j, 0, 7){
             if(field[i][j]){
                 // printf("%d\t", field[i][j]);
                 printf("# ");
