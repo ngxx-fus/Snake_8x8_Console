@@ -41,7 +41,7 @@ enum enum_CurrDirection{right=0, up=90, left=180, down=270};
 #define _point_eq(Ax,Ay,Bx,By) ((((Ax)==(Bx))&&((Ay)==(By)))?(1):(0))
 
 //This will avail for 1-8 and 0->7 :>
-int field[9][9];
+int field[8][8];
 //Game is paused?
 int is_paused = 0;
 //Game over?
@@ -154,6 +154,13 @@ void snake_head_update(){
 }
 
 
+void snake_clear(){
+    int i, j;
+    REP(i, 0, 7)
+        REP(j, 0, 7)
+            field[i][j] = 0;
+}
+
 void snake_body_update(){
     if(is_dead) return;
     int x=head_x, y=head_y, x_temp, y_temp, i;
@@ -200,6 +207,7 @@ void snake_body_update(){
 }  
 
 void snake_initial(){
+    snake_clear();
     random_XY(&head_x, &head_y);
     field[head_x][head_y]=head;
     random_apple();
